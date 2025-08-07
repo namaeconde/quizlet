@@ -1,5 +1,6 @@
 import getQuizById from "../constants/QuestionMap.ts";
 import { useState } from "react";
+import ProgressBar from "./ProgressBar.tsx";
 
 interface QuizProps {
     id: string
@@ -28,13 +29,16 @@ export default function Quiz({ id }: QuizProps) {
     }
 
     return (
-        <div>
+        <div style={{ padding: '20px', minWidth: '600px', margin: 'auto' }}>
             {quiz ? (
                 <div>
                     <h1>{quiz.title}</h1>
                     {
                         !result && currentQuestion &&
                         <div key={currentQuestion.id} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div style={{ width: '100%' }}>
+                                <ProgressBar currentStep={currentQuestionIndex + 1} totalSteps={quiz.questions.length} />
+                            </div>
                             <h2>{currentQuestion.question}</h2>
                             {currentQuestion.answerType === 'select' ? (
                                 <select>
